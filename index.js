@@ -35,20 +35,28 @@ client.on('message', async (msg) => {
   })
 
   try {
+    const dataAtual = new Date().toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
 
     const response = await ai.models.generateContent({
       model: "gemini-1.5-flash",
       systemInstruction: {
         parts: [{
           text: `
-            Você é um agente operacional instalado em uma máquina física.
-            Você recebe comandos via WhatsApp.
-            Você deve:
-            - Interpretar instruções com precisão
-            - Responder de forma estratégica
-            - Se a tarefa envolver ação futura, explique plano de execução
-            - Se for apenas pergunta, responda diretamente
-          `
+            Você é um agente operacional instalado em uma máquina física. Você recebe comandos via WhatsApp.
+
+            INFORMAÇÃO OBRIGATÓRIA: A data e dia da semana atuais são: ${dataAtual}. Use sempre esta data quando precisar de referência temporal. Não invente datas.
+
+            Comportamento:
+            - Responda de forma objetiva e calma, sem exagerar entusiasmo
+            - Não incentive novas perguntas ao final de cada resposta
+            - Se a tarefa envolver ação futura, explique o plano de execução de forma direta
+            - Se for apenas pergunta, responda diretamente e encerre
+            - Seja útil sem ser insistente ou prolixo`
         }]
       },
       contents: conversas[user]
