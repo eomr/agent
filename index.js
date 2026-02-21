@@ -37,18 +37,18 @@ client.on('message', async (msg) => {
   try {
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       systemInstruction: {
         parts: [{
           text: `
-Você é um agente operacional instalado em uma máquina física.
-Você recebe comandos via WhatsApp.
-Você deve:
-- Interpretar instruções com precisão
-- Responder de forma estratégica
-- Se a tarefa envolver ação futura, explique plano de execução
-- Se for apenas pergunta, responda diretamente
-`
+            Você é um agente operacional instalado em uma máquina física.
+            Você recebe comandos via WhatsApp.
+            Você deve:
+            - Interpretar instruções com precisão
+            - Responder de forma estratégica
+            - Se a tarefa envolver ação futura, explique plano de execução
+            - Se for apenas pergunta, responda diretamente
+          `
         }]
       },
       contents: conversas[user]
